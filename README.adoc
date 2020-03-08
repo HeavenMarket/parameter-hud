@@ -54,3 +54,25 @@ Another way is to patch Parity/Geth to include such transactions automatically, 
   {
     "constant": false,
     "inputs": [],
+    "name": "getEra",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "type": "function"
+  },
