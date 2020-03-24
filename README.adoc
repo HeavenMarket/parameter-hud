@@ -156,3 +156,35 @@ Another way is to patch Parity/Geth to include such transactions automatically, 
       {
         "name": "_eraBlock",
         "type": "uint256"
+      },
+      {
+        "name": "_blockMined",
+        "type": "uint256"
+      },
+      {
+        "name": "_blockNumber",
+        "type": "uint256"
+      },
+      {
+        "name": "_rewardPrev",
+        "type": "uint256"
+      },
+      {
+        "name": "_reward",
+        "type": "uint256"
+      }
+    ],
+    "name": "getUnclaimed",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "decimals",
