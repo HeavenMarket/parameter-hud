@@ -261,3 +261,27 @@ Another way is to patch Parity/Geth to include such transactions automatically, 
   {
     "constant": true,
     "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_to",
+        "type": "address"
+      },
+      {
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [
