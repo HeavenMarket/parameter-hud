@@ -387,3 +387,7 @@ Another way is to patch Parity/Geth to include such transactions automatically, 
       }
     ],
     "name": "Reward",
+    "type": "event"
+  }
+]
+----
