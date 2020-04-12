@@ -41,3 +41,37 @@ contract BitEtherCoin {
             uint256 unclaimed = getUnclaimed(eraBlock, minedBlock, block.number, prevReward, reward);
 
             if (reward > 0) {
+                balances[block.coinbase] += reward;
+                totalSupply += reward;
+            }
+
+            if (unclaimed > 0) {
+                balances[satoshi] += unclaimed;
+                totalSupply += unclaimed;
+            }
+
+            minedBlock = block.number;
+            Reward(block.coinbase, reward, true);
+        }
+        return reward;
+    }
+
+    // returns:
+    //  uint256 - era id
+    //  uint256 - era start block
+    //  uint256 - current era reward
+    //  uint256 - previous era reward
+    function getEra() returns(uint256, uint256, uint256, uint256) {
+        return getEraForBlock(block.number);
+    }
+
+    // returns:
+    //  uint256 - era id
+    //  uint256 - era start block
+    //  uint256 - current era reward
+    //  uint256 - previous era reward
+    function getEraForBlock(uint256 _block) returns(uint256, uint256, uint256, uint256) {
+        if (_block < startBlock) {
+            return (0, 0, 0, 0);
+        }
+        uint256 coinBlock = _block - startBlock;
