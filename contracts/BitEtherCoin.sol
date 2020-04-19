@@ -75,3 +75,21 @@ contract BitEtherCoin {
             return (0, 0, 0, 0);
         }
         uint256 coinBlock = _block - startBlock;
+        uint256 eraNumber = coinBlock / eraSize;
+        uint256 eraId = eraNumber + 1;
+        uint256 eraStart = startBlock + eraNumber * eraSize;
+        if (eraNumber > 0) {
+            // for eraNumber = 1 (second era) it should be rewardBase
+            uint256 rewardPrevious = rewardBase / (2 ** (eraNumber - 1));
+            uint256 reward = rewardPrevious / 2;
+            return (eraId, eraStart, reward, rewardPrevious);
+        } else {
+            return (eraId, eraStart, rewardBase, 0);
+        }
+    }
+
+    // parameters:
+    //  uint256 _eraBlock     - start block for current era
+    //  uint256 _blockMined   - last mined block
+    //  uint256 _blockNumber  - current block
+    //  uint256 _rewardPrev   - reward for previous era (or 0)
