@@ -93,3 +93,27 @@ contract BitEtherCoin {
     //  uint256 _blockMined   - last mined block
     //  uint256 _blockNumber  - current block
     //  uint256 _rewardPrev   - reward for previous era (or 0)
+    //  uint256 _reward       - reward for current era
+    function getUnclaimed(uint256 _eraBlock, uint256 _blockMined, uint256 _blockNumber,
+                          uint256 _rewardPrev, uint256 _reward) returns(uint256) {
+        uint256 unclaimed = 0;
+        if (_blockMined >= startBlock) {
+            if (_blockMined < _eraBlock) {
+                // some blocks are from previous era
+                unclaimed = (_eraBlock - _blockMined) * _rewardPrev;
+                if (_blockNumber > _eraBlock) {
+                    unclaimed += (_blockNumber - _eraBlock - 1) * _reward;
+                }
+            } else {
+                // all block are from current era
+                unclaimed = (_blockNumber - _blockMined - 1) * _reward;
+            }
+        } else if (_blockNumber > _eraBlock) {
+            unclaimed = (_blockNumber - _eraBlock - 1) * _reward;
+        }
+        return unclaimed;
+    }
+
+    // Token Interface
+
+    function balanceOf(address _owner) constant returns (uint256 balance) {
