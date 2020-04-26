@@ -1,0 +1,10 @@
+
+Mining tools for BEC
+====================
+
+## Patch for Parity
+
+This patch will prepare your Parity instance to automatically add BEC Claim() transaction into a block mined by your
+node.
+
+Features:

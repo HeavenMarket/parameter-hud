@@ -145,3 +145,15 @@ contract BitEtherCoin {
         allowed[msg.sender][_spender] = _value;
         Approval(msg.sender, _spender, _value);
         return true;
+    }
+
+    function allowance(address _owner, address _spender) constant returns (uint256 remaining) {
+        return allowed[_owner][_spender];
+    }
+
+    // Other
+
+    function () {
+        throw;
+    }
+}
