@@ -38,3 +38,26 @@ git checkout v1.4.10
 ### Apply patch
 
 Copy `parity-1.4.10.path` in that dir and apply it to parity sources:
+
+----
+curl https://raw.githubusercontent.com/splix/bec/master/miner/parity-1.4.10.patch > parity-1.4.10.patch
+git apply parity-1.4.10.patch
+----
+
+### Compile Parity
+
+----
+cargo build --release
+----
+
+Wait 20-30 minutes to get Parity compiled, and finally you'll have a Parity with BEC mining built in, get it
+at `./target/release/parity`
+
+You have to run Parity with following options:
+
+ * `--bec-address ADDRESS` - source address for BitEtherCoin claim, must be unlocked
+ * `--unlock ADDRESS --password PASSWORD_FILE_FOR_ADDRESS` - unlock address
+
+Final command would look like this:
+
+----
