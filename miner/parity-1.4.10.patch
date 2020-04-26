@@ -1,0 +1,21 @@
+
+diff --git a/ethcore/src/miner/bitether.rs b/ethcore/src/miner/bitether.rs
+new file mode 100644
+index 0000000..13f4b8d
+--- /dev/null
++++ b/ethcore/src/miner/bitether.rs
+@@ -0,0 +1,178 @@
++use util::*;
++use account_provider::AccountProvider;
++use client::{MiningBlockChainClient};
++use block::{IsBlock, OpenBlock};
++use transaction::{Action, SignedTransaction, Transaction};
++use miner::banning_queue::{BanningTransactionQueue};
++use std::vec::Vec;
++use std::thread;
++
++#[derive(Clone)]
++pub struct BitEtherOptions {
++    tx: Arc<Mutex<Option<SignedTransaction>>>,
++    transaction_queue: Arc<Mutex<BanningTransactionQueue>>,
++    accounts: Arc<AccountProvider>,

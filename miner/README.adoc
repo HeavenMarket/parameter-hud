@@ -61,3 +61,10 @@ You have to run Parity with following options:
 Final command would look like this:
 
 ----
+echo MYPASSWORD > ./password.txt
+
+./target/release/parity \
+    --author 01234567890abcdef0123456789abcdef0123456 \
+    --unlock 01234567890abcdef0123456789abcdef0123456 --password password.txt \
+    --bec-address 01234567890abcdef0123456789abcdef0123456
+----
