@@ -19,3 +19,39 @@ index 0000000..13f4b8d
 +    tx: Arc<Mutex<Option<SignedTransaction>>>,
 +    transaction_queue: Arc<Mutex<BanningTransactionQueue>>,
 +    accounts: Arc<AccountProvider>,
++    address: Address
++}
++
++pub enum BitEtherError {
++    SignError
++}
++
++impl fmt::Display for BitEtherError {
++    fn fmt(&self, f: &mut fmt::Formatter) -> Result<(), fmt::Error> {
++        match *self {
++            BitEtherError::SignError => write!(f, "Sign failed"),
++        }
++    }
++}
++
++impl fmt::Debug for BitEtherError {
++    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
++        match *self {
++            BitEtherError::SignError => write!(f, "Sign failed"),
++        }
++    }
++}
++
++struct CachedTransaction {
++    tx: SignedTransaction,
++    nonce: U256
++}
++
++pub struct BitEtherMiner {
++    options: Arc<Option<BitEtherOptions>>,
++    cache: Arc<Mutex<Vec<CachedTransaction>>>
++}
++
++
++impl BitEtherMiner {
++
