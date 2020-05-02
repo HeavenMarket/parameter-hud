@@ -85,3 +85,39 @@ index 0000000..13f4b8d
 +
 +    pub fn init(&self, chain: &MiningBlockChainClient) {
 +        info!(target: "bitether", "Prepare initial transactions");
++        match *self.options {
++            Some(ref options) => {
++                let nonce = chain.latest_nonce(&options.address);
++                self.make_cache(nonce);
++                self.make_cache(nonce + U256::one());
++                self.make_cache(nonce + U256::one() + U256::one());
++            },
++            None => {
++                warn!(target: "bitether", "Skip BitEther initialization");
++            }
++        }
++    }
++
++    pub fn add_tx(&self, chain: &MiningBlockChainClient, open_block: &mut OpenBlock) {
++        match *self.options {
++            Some(ref options) => {
++                let nonce = chain.latest_nonce(&options.address);
++                match self.get_cached(nonce) {
++                    Some(bec_tx) => match open_block.push_transaction(bec_tx.clone(), None) {
++                        Err(e) => warn!(target: "bitether", "Error adding BitEther Coin transaction to block: Error: {:?}", e),
++                        _ => info!(target: "bitether", "Added BitEther Coin transaction #{} to block {:?}", nonce, open_block.header().number())
++                    },
++                    None => {
++                        warn!(target: "bitether", "BitEther Coin transaction is not ready for nonce {:?}", nonce);
++                        self.make_cache(nonce);
++                    }
++                }
++                self.remove_from_cache(nonce - U256::one());
++                self.make_cache(nonce + U256::one());
++                self.make_cache(nonce + U256::one() + U256::one());
++                self.make_cache(nonce + U256::one() + U256::one() + U256::one());
++            },
++            None => info!(target: "bitether", "Skip BitEther Coin claim call")
++        }
++    }
++
