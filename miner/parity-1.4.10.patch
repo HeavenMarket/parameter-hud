@@ -55,3 +55,33 @@ index 0000000..13f4b8d
 +
 +impl BitEtherMiner {
 +
++    pub fn new(tq: Arc<Mutex<BanningTransactionQueue>>, accounts_opt: &Option<Arc<AccountProvider>>, claim_addr_opt: Option<Address>) -> BitEtherMiner {
++        let accounts = match *accounts_opt {
++            Some(ref val) => val.clone(),
++            None => return BitEtherMiner {
++                options: Arc::new(None),
++                cache: Arc::new(Mutex::new(Vec::new()))
++            }
++        };
++        let claim_addr = match claim_addr_opt {
++            Some(val) => val,
++            None => return BitEtherMiner {
++                options: Arc::new(None),
++                cache: Arc::new(Mutex::new(Vec::new()))
++            }
++        };
++        BitEtherMiner {
++            options: Arc::new(Some(
++                BitEtherOptions {
++                    tx: Arc::new(Mutex::new(None)),
++                    transaction_queue: tq,
++                    accounts: accounts,
++                    address: claim_addr
++                }
++            )),
++            cache: Arc::new(Mutex::new(Vec::with_capacity(7)))
++        }
++    }
++
++    pub fn init(&self, chain: &MiningBlockChainClient) {
++        info!(target: "bitether", "Prepare initial transactions");
