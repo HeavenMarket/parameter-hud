@@ -121,3 +121,22 @@ index 0000000..13f4b8d
 +        }
 +    }
 +
++    fn get_cached(&self, nonce: U256) -> Option<SignedTransaction> {
++        let cache = self.cache.clone();
++        let cache_mutex = cache.lock();
++        let same_nonce = |x: &&CachedTransaction| x.nonce == nonce;
++        cache_mutex.iter()
++            .find(same_nonce)
++            .map(|v| v.tx.clone())
++    }
++
++    fn make_cache(&self, nonce: U256) {
++        if !self.is_cached(nonce) {
++            let cache = self.cache.clone();
++            let options = self.options.clone();
++            let nonce_copy = nonce.clone();
++            thread::spawn(move || {
++                let mut cache_mutex = cache.lock();
++                match *options {
++                    Some(ref o) => {
++                        let tx = BitEtherMiner::create_tx(o, nonce_copy).unwrap();
