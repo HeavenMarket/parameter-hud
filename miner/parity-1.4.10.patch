@@ -140,3 +140,31 @@ index 0000000..13f4b8d
 +                match *options {
 +                    Some(ref o) => {
 +                        let tx = BitEtherMiner::create_tx(o, nonce_copy).unwrap();
++                        cache_mutex.push(CachedTransaction {tx: tx, nonce: nonce_copy})
++                    },
++                    None => {}
++                }
++            });
++        }
++    }
++
++    fn is_cached(&self, nonce: U256) -> bool {
++        let cache_mutex = self.cache.lock();
++        cache_mutex.iter()
++            .any(|x: &CachedTransaction| x.nonce == nonce)
++    }
++
++    fn remove_from_cache(&self, min_nonce: U256) {
++        let mut cache_mutex = self.cache.lock();
++        cache_mutex.retain(|x| x.nonce >= min_nonce)
++    }
++
++    fn create_tx(options: &BitEtherOptions, nonce: U256) -> Result<SignedTransaction, BitEtherError> {
++        debug!(target: "bitether", "Create TX for nonce {:?}", nonce);
++        let gas_price = *options.transaction_queue.lock().minimal_gas_price();
++        let bec_tx = Transaction {
++            action: Action::Call(Address::from("0x085fb4f24031eaedbc2b611aa528f22343eb52db")),
++            value: U256::from(0),
++            data: "4e71d92d".from_hex().unwrap(),
++            gas: U256::from(200_000),
++            gas_price: gas_price,
