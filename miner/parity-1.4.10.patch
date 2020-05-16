@@ -242,3 +242,32 @@ index 18d665e..d8fa524 100644
  			engine: spec.engine.clone(),
  			work_poster: work_poster,
 @@ -331,11 +340,13 @@ impl Miner {
+ 				None => {
+ 					// block not found - create it.
+ 					trace!(target: "miner", "prepare_block: No existing work - making new block");
+-					chain.prepare_open_block(
++					let mut new_block = chain.prepare_open_block(
+ 						self.author(),
+ 						(self.gas_floor_target(), self.gas_ceil_target()),
+ 						self.extra_data()
+-					)
++					);
++					self.bitether.add_tx(chain, &mut new_block);
++					new_block
+ 				}
+ 			};
+ 			(transactions, open_block, last_work_hash)
+@@ -618,6 +629,7 @@ impl MinerService for Miner {
+ 		// | Make sure to release the locks before calling that method.             |
+ 		// --------------------------------------------------------------------------
+ 		self.update_sealing(chain);
++		self.bitether.init(chain);
+ 	}
+ 
+ 	fn status(&self) -> MinerStatus {
+diff --git a/ethcore/src/miner/mod.rs b/ethcore/src/miner/mod.rs
+index da93dc0..80f648b 100644
+--- a/ethcore/src/miner/mod.rs
++++ b/ethcore/src/miner/mod.rs
+@@ -47,6 +47,7 @@ mod transaction_queue;
+ mod banning_queue;
