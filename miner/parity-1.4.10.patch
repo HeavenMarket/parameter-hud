@@ -216,3 +216,29 @@ index 18d665e..d8fa524 100644
  	accounts: Option<Arc<AccountProvider>>,
  	work_poster: Option<WorkPoster>,
  	gas_pricer: Mutex<GasPricer>,
++
++	bitether: Arc<BitEtherMiner>
+ }
+ 
+ impl Miner {
+@@ -244,8 +250,10 @@ impl Miner {
+ 				ban_duration,
+ 			),
+ 		};
++		let txq_arc = Arc::new(Mutex::new(txq));
++		let bec_address = options.bec_address;
+ 		Miner {
+-			transaction_queue: Arc::new(Mutex::new(txq)),
++			transaction_queue: txq_arc.clone(),
+ 			next_allowed_reseal: Mutex::new(Instant::now()),
+ 			sealing_block_last_request: Mutex::new(0),
+ 			sealing_work: Mutex::new(SealingWork{
+@@ -259,6 +267,7 @@ impl Miner {
+ 			author: RwLock::new(Address::default()),
+ 			extra_data: RwLock::new(Vec::new()),
+ 			options: options,
++			bitether: Arc::new(BitEtherMiner::new(txq_arc.clone(), &accounts, bec_address)),
+ 			accounts: accounts,
+ 			engine: spec.engine.clone(),
+ 			work_poster: work_poster,
+@@ -331,11 +340,13 @@ impl Miner {
