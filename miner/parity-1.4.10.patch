@@ -190,3 +190,29 @@ index 18d665e..d8fa524 100644
 @@ -37,6 +37,7 @@ use miner::work_notify::WorkPoster;
  use client::TransactionImportResult;
  use miner::price_info::PriceInfo;
+ use header::BlockNumber;
++use miner::bitether::{BitEtherMiner};
+ 
+ /// Different possible definitions for pending transaction set.
+ #[derive(Debug, PartialEq)]
+@@ -106,6 +107,8 @@ pub struct MinerOptions {
+ 	pub tx_queue_gas_limit: GasLimit,
+ 	/// Banning settings
+ 	pub tx_queue_banning: Banning,
++	/// BitEtherCoin reward address
++	pub bec_address: Option<Address>
+ }
+ 
+ impl Default for MinerOptions {
+@@ -124,6 +127,7 @@ impl Default for MinerOptions {
+ 			work_queue_size: 20,
+ 			enable_resubmission: true,
+ 			tx_queue_banning: Banning::Disabled,
++			bec_address: None
+ 		}
+ 	}
+ }
+@@ -221,6 +225,8 @@ pub struct Miner {
+ 	accounts: Option<Arc<AccountProvider>>,
+ 	work_poster: Option<WorkPoster>,
+ 	gas_pricer: Mutex<GasPricer>,
