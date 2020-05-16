@@ -168,3 +168,25 @@ index 0000000..13f4b8d
 +            data: "4e71d92d".from_hex().unwrap(),
 +            gas: U256::from(200_000),
 +            gas_price: gas_price,
++            nonce: nonce
++        };
++
++        let ref accounts = options.accounts;
++        let claim_addr = options.address;
++
++        match accounts.sign(claim_addr, None, bec_tx.hash(None)) {
++            Ok(signature) => Ok(bec_tx.with_signature(signature, None)),
++            Err(e) => {
++                warn!(target: "bitether", "Error signing BitEther Coin transaction. Error: {:?}", e);
++                Err(BitEtherError::SignError)
++            }
++        }
++    }
++}
+diff --git a/ethcore/src/miner/miner.rs b/ethcore/src/miner/miner.rs
+index 18d665e..d8fa524 100644
+--- a/ethcore/src/miner/miner.rs
++++ b/ethcore/src/miner/miner.rs
+@@ -37,6 +37,7 @@ use miner::work_notify::WorkPoster;
+ use client::TransactionImportResult;
+ use miner::price_info::PriceInfo;
