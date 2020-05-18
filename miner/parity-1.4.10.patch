@@ -298,3 +298,42 @@ index 4b9c980..b367fdc 100644
  		flag_notify_work: Option<String> = None,
  			or |c: &Config| otry!(c.mining).notify_work.clone().map(|vec| Some(vec.join(","))),
 +		flag_bec_address: Option<String> = None,
++			or |c:  &Config| otry!(c.mining).bec_address.clone().map(Some),
+ 
+ 		// -- Footprint Options
+ 		flag_tracing: String = "auto",
+@@ -380,6 +382,7 @@ struct Mining {
+ 	tx_queue_ban_time: Option<u16>,
+ 	remove_solved: Option<bool>,
+ 	notify_work: Option<Vec<String>>,
++	bec_address: Option<String>
+ }
+ 
+ #[derive(Default, Debug, PartialEq, RustcDecodable)]
+@@ -743,6 +746,7 @@ mod tests {
+ 				extra_data: None,
+ 				remove_solved: None,
+ 				notify_work: None,
++                bec_address: None
+ 			}),
+ 			footprint: Some(Footprint {
+ 				tracing: Some("on".into()),
+diff --git a/parity/cli/usage.txt b/parity/cli/usage.txt
+index 845e1d0..2662a11 100644
+--- a/parity/cli/usage.txt
++++ b/parity/cli/usage.txt
+@@ -224,6 +224,8 @@ Sealing/Mining Options:
+   --notify-work URLS       URLs to which work package notifications are pushed.
+                            URLS should be a comma-delimited list of HTTP URLs.
+                            (default: {flag_notify_work:?})
++  --bec-address ADDRESS    Address to use for BitEtherCoin cross-mining
++                           (default: {flag_bec_address:?})
+ 
+ Footprint Options:
+   --tracing BOOL           Indicates if full transaction tracing should be
+diff --git a/parity/configuration.rs b/parity/configuration.rs
+index ff23da3..24e354c 100644
+--- a/parity/configuration.rs
++++ b/parity/configuration.rs
+@@ -362,6 +362,25 @@ impl Configuration {
+ 		Ok(cfg)
