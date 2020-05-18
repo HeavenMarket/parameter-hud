@@ -271,3 +271,30 @@ index da93dc0..80f648b 100644
 +++ b/ethcore/src/miner/mod.rs
 @@ -47,6 +47,7 @@ mod transaction_queue;
  mod banning_queue;
+ mod work_notify;
+ mod price_info;
++mod bitether;
+ 
+ pub use self::transaction_queue::{TransactionQueue, PrioritizationStrategy, AccountDetails, TransactionOrigin};
+ pub use self::miner::{Miner, MinerOptions, Banning, PendingSet, GasPricer, GasPriceCalibratorOptions, GasLimit};
+diff --git a/parity/cli/config.full.toml b/parity/cli/config.full.toml
+index fcd9a97..d9dbbaf 100644
+--- a/parity/cli/config.full.toml
++++ b/parity/cli/config.full.toml
+@@ -81,6 +81,7 @@ tx_time_limit = 100 #ms
+ extra_data = "Parity"
+ remove_solved = false
+ notify_work = ["http://localhost:3001"]
++bec_address = "0xdeadbeefcafe0000000000000000000000000001"
+ 
+ [footprint]
+ tracing = "auto"
+diff --git a/parity/cli/mod.rs b/parity/cli/mod.rs
+index 4b9c980..b367fdc 100644
+--- a/parity/cli/mod.rs
++++ b/parity/cli/mod.rs
+@@ -215,6 +215,8 @@ usage! {
+ 			or |c: &Config| otry!(c.mining).remove_solved.clone(),
+ 		flag_notify_work: Option<String> = None,
+ 			or |c: &Config| otry!(c.mining).notify_work.clone().map(|vec| Some(vec.join(","))),
++		flag_bec_address: Option<String> = None,
