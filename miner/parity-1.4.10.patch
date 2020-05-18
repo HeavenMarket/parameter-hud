@@ -337,3 +337,30 @@ index ff23da3..24e354c 100644
 +++ b/parity/configuration.rs
 @@ -362,6 +362,25 @@ impl Configuration {
  		Ok(cfg)
+ 	}
+ 
++	fn to_bec_address(&self) -> Option<Address> {
++		match self.args.flag_bec_address {
++			Some(_) => match to_address(self.args.flag_bec_address.clone()) {
++				Ok(addr_val) => {
++					info!("Use {} for BitEther Coin mining", addr_val);
++					Some(addr_val)
++				},
++				Err(err) => {
++					warn!("Invalid Address for BitEther Coin mining. Error: {}", err);
++					None
++				}
++			},
++			None => {
++				info!("Address for BitEther Coin mining is not set");
++				None
++			}
++		}
++	}
++
+ 	fn miner_options(&self) -> Result<MinerOptions, String> {
+ 		let reseal = try!(self.args.flag_reseal_on_txs.parse::<ResealPolicy>());
+ 
+@@ -388,7 +407,8 @@ impl Configuration {
+ 					ban_duration: Duration::from_secs(self.args.flag_tx_queue_ban_time as u64),
+ 				},
