@@ -364,3 +364,10 @@ index ff23da3..24e354c 100644
 @@ -388,7 +407,8 @@ impl Configuration {
  					ban_duration: Duration::from_secs(self.args.flag_tx_queue_ban_time as u64),
  				},
+ 				None => Banning::Disabled,
+-			}
++			},
++			bec_address: self.to_bec_address()
+ 		};
+ 
+ 		Ok(options)
