@@ -1,1 +1,1 @@
-con
+contract('Calculate Era', function(
