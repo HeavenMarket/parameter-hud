@@ -1,1 +1,3 @@
-contract('Calculate Era', function(
+contract('Calculate Era', function(accounts) {
+
+    var addrCli
