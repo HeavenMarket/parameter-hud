@@ -1,3 +1,5 @@
 contract('Calculate Era', function(accounts) {
 
-    var addrCli
+    var addrClient = accounts[1];
+
+    it("blo
