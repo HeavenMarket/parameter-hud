@@ -2,4 +2,4 @@ contract('Calculate Era', function(accounts) {
 
     var addrClient = accounts[1];
 
-    it("blo
+    it("block        1 - not starte
