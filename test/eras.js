@@ -12,4 +12,5 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("block  1000000 - not started - 0", functi
+    it("block  1000000 - not started - 0", function(done) {
+        var coin = Bi
