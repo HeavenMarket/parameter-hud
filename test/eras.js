@@ -22,4 +22,4 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("b
+    it("block  1500000 - not started - 0",
