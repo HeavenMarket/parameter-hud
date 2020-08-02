@@ -24,4 +24,4 @@ contract('Calculate Era', function(accounts) {
 
     it("block  1500000 - not started - 0", function(done) {
         var coin = BitEtherCoin.deployed();
-        coin.getEraForBl
+        coin.getEraForBlock.call(1500000).t
