@@ -33,4 +33,5 @@ contract('Calculate Era', function(accounts) {
     });
 
     it("block  2000000 - not started - 0", function(done) {
-        var coin = BitEthe
+        var coin = BitEtherCoin.deployed();
+        coin.
