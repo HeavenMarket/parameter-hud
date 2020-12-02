@@ -82,4 +82,4 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("block  56745
+    it("block  5674538 - first era - 2", function(done)
