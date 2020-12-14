@@ -93,4 +93,4 @@ contract('Calculate Era', function(accounts) {
     });
 
 
-    
+    it("block  6899999 - first era
