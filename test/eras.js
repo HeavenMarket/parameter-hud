@@ -94,4 +94,5 @@ contract('Calculate Era', function(accounts) {
 
 
     it("block  6899999 - first era - 2", function(done) {
-        var coin = BitEther
+        var coin = BitEtherCoin.deployed();
+   
