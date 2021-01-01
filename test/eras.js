@@ -104,4 +104,4 @@ contract('Calculate Era', function(accounts) {
     });
 
     it("block  7976892 - second era - 1", function(done) {
-        var c
+        var coin = BitEtherCoin.
