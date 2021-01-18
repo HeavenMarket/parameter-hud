@@ -113,4 +113,4 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("blo
+    it("block  8792060 - second era - 1", fu
