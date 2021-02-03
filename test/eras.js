@@ -123,4 +123,5 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("block 11000200 - second era - 1", functi
+    it("block 11000200 - second era - 1", function(done) {
+        var coin
