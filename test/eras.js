@@ -129,4 +129,4 @@ contract('Calculate Era', function(accounts) {
             assert.equal(e[0].toNumber(), 2);
             assert.equal(e[1].toNumber(), 7976892);
             //                            .0000
-            a
+            assert.equal(e[2].toNumb
