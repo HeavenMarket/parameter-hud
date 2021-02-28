@@ -134,3 +134,4 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
+    it("block 132
