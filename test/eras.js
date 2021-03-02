@@ -135,4 +135,5 @@ contract('Calculate Era', function(accounts) {
     });
 
     it("block 13226892 - third era - 0.5", function(done) {
-        var coi
+        var coin = BitEtherCoin.deployed();
+   
