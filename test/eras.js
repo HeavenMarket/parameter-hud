@@ -138,4 +138,5 @@ contract('Calculate Era', function(accounts) {
         var coin = BitEtherCoin.deployed();
         coin.getEraForBlock.call(13226892).then( (e) => {
             assert.equal(e[0].toNumber(), 3);
-            assert.equal(e[1].t
+            assert.equal(e[1].toNumber(), 13226892);
+       
