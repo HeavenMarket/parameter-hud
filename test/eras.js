@@ -145,4 +145,4 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-   
+    it("block 15700000 - third era
