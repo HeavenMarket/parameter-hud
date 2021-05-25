@@ -146,3 +146,4 @@ contract('Calculate Era', function(accounts) {
     });
 
     it("block 15700000 - third era - 0.5", function(done) {
+        var coin = BitEth
