@@ -156,4 +156,4 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("block 184768
+    it("block 18476892 - 4th era - 0.25
