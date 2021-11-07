@@ -179,4 +179,4 @@ contract('Calculate Era', function(accounts) {
     });
 
     it("block 23726892 - 5th era - 0.125", function(done) {
-  
+        var coin = BitEtherCoin.dep
