@@ -211,4 +211,5 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("block 39476892 - 8th era - 0.015625", fun
+    it("block 39476892 - 8th era - 0.015625", function(done) {
+        var coin = 
