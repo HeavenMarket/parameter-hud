@@ -212,4 +212,5 @@ contract('Calculate Era', function(accounts) {
     });
 
     it("block 39476892 - 8th era - 0.015625", function(done) {
-        var coin = 
+        var coin = BitEtherCoin.deployed();
+        c
