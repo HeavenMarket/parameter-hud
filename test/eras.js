@@ -227,4 +227,5 @@ contract('Calculate Era', function(accounts) {
         coin.getEraForBlock.call(44726892).then( (e) => {
             assert.equal(e[0].toNumber(), 9);
             assert.equal(e[1].toNumber(), 44726892);
-            //                            .0000
+            //                            .00000000
+            asse
