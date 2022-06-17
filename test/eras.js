@@ -255,4 +255,4 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("block 60
+    it("block 60476892 - 12th era - 0.00
