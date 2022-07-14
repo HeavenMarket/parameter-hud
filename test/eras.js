@@ -263,4 +263,7 @@ contract('Calculate Era', function(accounts) {
             //                            .00000000
             assert.equal(e[2].toNumber(),     97656);
             assert.equal(e[3].toNumber(),    195312);
-        }).then(don
+        }).then(done).catch(done);
+    });
+
+    it(
