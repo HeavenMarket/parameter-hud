@@ -310,4 +310,5 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("block 149726892 - 29th era - 0.00000000", f
+    it("block 149726892 - 29th era - 0.00000000", function(done) {
+      
