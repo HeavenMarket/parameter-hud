@@ -343,4 +343,5 @@ contract('Calculate Era', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("block 165476892 - 32th era - 0.00000000", function(done)
+    it("block 165476892 - 32th era - 0.00000000", function(done) {
+        var coin = BitEtherC
