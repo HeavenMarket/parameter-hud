@@ -345,4 +345,4 @@ contract('Calculate Era', function(accounts) {
 
     it("block 165476892 - 32th era - 0.00000000", function(done) {
         var coin = BitEtherCoin.deployed();
-        coin.
+        coin.getEraForBlock.call(16547689
