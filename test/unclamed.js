@@ -5,4 +5,6 @@ contract('Calculate Unclaimed', function(accounts) {
         coin.getUnclaimed.call(2726892, 0, 2726892, 0, 250000000).then((e) => {
             assert.equal(e.toNumber(), 0);
         }).then(done).catch(done);
-    })
+    });
+
+    it("0 unclaimed just starte
