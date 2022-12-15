@@ -15,4 +15,4 @@ contract('Calculate Unclaimed', function(accounts) {
     });
 
     it("1 unclaimed just started", function (done) {
-        va
+        var coin = BitEtherCoin.de
