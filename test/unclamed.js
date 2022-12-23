@@ -21,4 +21,4 @@ contract('Calculate Unclaimed', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("3 unclaime
+    it("3 unclaimed just started", function (do
