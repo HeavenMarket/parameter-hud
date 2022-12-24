@@ -21,4 +21,5 @@ contract('Calculate Unclaimed', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("3 unclaimed just started", function (do
+    it("3 unclaimed just started", function (done) {
+        var coin = BitEt
