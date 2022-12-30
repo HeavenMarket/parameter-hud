@@ -24,4 +24,5 @@ contract('Calculate Unclaimed', function(accounts) {
     it("3 unclaimed just started", function (done) {
         var coin = BitEtherCoin.deployed();
         coin.getUnclaimed.call(2726892, 0, 2726896, 0, 250000000).then((e) => {
-            assert.equal(e.toNum
+            assert.equal(e.toNumber(), 750000000);
+     
