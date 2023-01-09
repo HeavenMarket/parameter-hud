@@ -36,4 +36,4 @@ contract('Calculate Unclaimed', function(accounts) {
     });
 
     it("1 unclaimed after 2800007", function (done) {
-   
+        var coin = BitEtherC
