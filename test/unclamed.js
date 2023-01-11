@@ -37,4 +37,5 @@ contract('Calculate Unclaimed', function(accounts) {
 
     it("1 unclaimed after 2800007", function (done) {
         var coin = BitEtherCoin.deployed();
-        coin.getUnclaimed.call(2800000, 2800007, 2800009, 0, 250000
+        coin.getUnclaimed.call(2800000, 2800007, 2800009, 0, 250000000).then((e) => {
+       
