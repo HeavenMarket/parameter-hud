@@ -42,4 +42,4 @@ contract('Calculate Unclaimed', function(accounts) {
         }).then(done).catch(done);
     });
 
-    it("1 unclaimed after 
+    it("1 unclaimed after 6900000", function (d
