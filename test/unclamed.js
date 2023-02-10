@@ -50,4 +50,5 @@ contract('Calculate Unclaimed', function(accounts) {
     });
 
     it("2 unclaimed after 6900000", function (done) {
-        var coin = BitEtherCoin.dep
+        var coin = BitEtherCoin.deployed();
+        coin.getUncla
